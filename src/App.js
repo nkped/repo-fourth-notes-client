@@ -1,4 +1,5 @@
 import Content from "./Content"
+import AddItem from "./AddItem"
 
 import { useState } from "react"
 
@@ -10,6 +11,7 @@ const [ items, setItems ] = useState([
   { id: 3, checked: false, item: 'coming home drunk' }
 ])
 
+const [ newItem, setNewItem] = useState('')
 
 const handleCheck = (id) => {
   const listItems = items.map((item) => (
@@ -28,9 +30,12 @@ const handleSubmit = () => {}
 
   return (
     <div className="App">
+      <AddItem 
+        newItem={newItem} 
+        setNewItem={setNewItem}
+       />
       <Content 
         items={items}
-        setItems={setItems}
         handleCheck={handleCheck} 
         handleDelete={handleDelete}
         />
