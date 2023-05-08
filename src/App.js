@@ -11,7 +11,13 @@ const [ items, setItems ] = useState([
 ])
 
 
-const handleCheck = (id) => {}
+const handleCheck = (id) => {
+  const listItems = items.map((item) => (
+    item.id === id ? { ...item, checked:!item.checked } : item
+  ))
+  setItems(listItems)
+}
+
 const handleDelete = (id) => {}
 const handleSubmit = () => {}
 
@@ -20,6 +26,7 @@ const handleSubmit = () => {}
     <div className="App">
       <Content 
         items={items}
+        setItems={setItems}
         handleCheck={handleCheck} 
         handleDelete={handleDelete}
         />
