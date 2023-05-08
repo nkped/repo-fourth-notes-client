@@ -1,19 +1,25 @@
 import React from 'react'
 
-const Content = ({ items }) => {
+const Content = ({ items, handleCheck }) => {
   return (
-    <div>
+    <main>
         <ul>
             {items.map((item) => (
-                <li key={item.id} >
+                <li key={item.id} className='item'>
                     <input 
-                        className='item'
-                        type='checklist' 
-                        checked={item.checked}               
+                        type='checkbox' 
+                        checked={item.checked}
+                        onChange={() => handleCheck(item.id)}
                         />
-                    <label >{item.item}</label>
+                    <label 
+                        style={ (item.checked) ? {textDecoration: 'line-through'} : null }
+                        onDoubleClick={() => handleCheck(item.id)}
+                        >{item.item}</label>
                 </li>
-            ))} </ul></div>
+            ))}
+            
+        </ul>
+    </main>
   )
 }
 
