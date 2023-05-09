@@ -6,9 +6,9 @@ import { useState } from "react"
 function App() {
 
 const [ items, setItems ] = useState([
-  { id: 1, checked: true, item: 'walking Santas Little Helper' },
-  { id: 2, checked: false, item: 'thrashing Bart' },
-  { id: 3, checked: false, item: 'coming home drunk' }
+  { id: 1, checked: true, item: 'walk Santas Little Helper' },
+  { id: 2, checked: false, item: 'thrash Bart' },
+  { id: 3, checked: false, item: 'come home drunk' }
 ])
 
 const [ newItem, setNewItem] = useState('')
@@ -25,14 +25,27 @@ const handleDelete = (id) => {
   item.id !== id)
   setItems(listItems)
 }
-const handleSubmit = () => {}
+const handleSubmit = (e) => {
+  e.preventDefault()
+  console.log(newItem)
+  addItem(newItem)
+}
+
+
+const addItem = (item) => {
+  const id = items.length ? items[items.length - 1].id + 1 : 1
+  const myNewItem = { id, checked: false, item }
+  const listItems = [ ...items, myNewItem ]
+  setItems(listItems)
+}
 
 
   return (
     <div className="App">
       <AddItem 
         newItem={newItem} 
-        setNewItem={setNewItem}
+        setNewItem={setNewItem} 
+        handleSubmit={handleSubmit}
        />
       <Content 
         items={items}

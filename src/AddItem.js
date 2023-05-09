@@ -1,8 +1,8 @@
 import React from 'react'
 
-const AddItem = ({ newItem, setNewItem }) => {
+const AddItem = ({ newItem, setNewItem, handleSubmit }) => {
   return (
-    <div className='addForm'>
+    <form className='addForm' onSubmit={handleSubmit}>
         <input 
             className='item'
             type='text' 
@@ -11,7 +11,7 @@ const AddItem = ({ newItem, setNewItem }) => {
             onChange={(e) => setNewItem(e.target.value)} />
         <button
             role='submit' >+</button>
-    </div>
+    </form>
   )
 }
 
