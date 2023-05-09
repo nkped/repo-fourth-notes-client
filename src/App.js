@@ -5,11 +5,7 @@ import { useState } from "react"
 
 function App() {
 
-const [ items, setItems ] = useState([
-  { id: 1, checked: true, item: 'walk Santas Little Helper' },
-  { id: 2, checked: false, item: 'thrash Bart' },
-  { id: 3, checked: false, item: 'come home drunk' }
-])
+const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
 
 const [ newItem, setNewItem] = useState('')
 
@@ -37,10 +33,11 @@ const addItem = (item) => {
   const myNewItem = { id, checked: false, item }
   const listItems = [ ...items, myNewItem ]
   setItems(listItems)
+  localStorage.setItem('homerslist', JSON.stringify(listItems))
 }
 
 
-  return (
+  return ( 
     <div className="App">
       <AddItem 
         newItem={newItem} 
@@ -58,3 +55,10 @@ const addItem = (item) => {
 }
 
 export default App;
+
+
+/* [
+  { id: 1, checked: true, item: 'walk Santas Little Helper' },
+  { id: 2, checked: false, item: 'thrash Bart' },
+  { id: 3, checked: false, item: 'come home drunk' }
+] */
