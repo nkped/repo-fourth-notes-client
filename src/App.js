@@ -1,5 +1,6 @@
 import Content from "./Content"
 import AddItem from "./AddItem"
+import SearchItem from "./SearchItem"
 
 import { useState } from "react"
 
@@ -9,7 +10,9 @@ function App() {
 
   const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
 
-const [ newItem, setNewItem] = useState('')
+  const [ newItem, setNewItem] = useState('')
+
+  const [ search, setSearch ] = useState('')
 
 //FUNCTIONS
 
@@ -52,8 +55,11 @@ const handleDelete = (id) => {
         setNewItem={setNewItem} 
         handleSubmit={handleSubmit}
        />
+      <SearchItem 
+        search={search} 
+        setSearch={setSearch} />
       <Content 
-        items={items}
+        items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()) )}
         handleCheck={handleCheck} 
         handleDelete={handleDelete}
         />
