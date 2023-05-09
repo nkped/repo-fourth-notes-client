@@ -5,26 +5,17 @@ import { useState } from "react"
 
 function App() {
 
-const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
+  //STATES
+
+  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
 
 const [ newItem, setNewItem] = useState('')
 
-const handleCheck = (id) => {
-  const listItems = items.map((item) => (
-    item.id === id ? { ...item, checked:!item.checked } : item
-  ))
-  setItems(listItems)
-}
+//FUNCTIONS
 
-const handleDelete = (id) => {
-  const listItems = items.filter((item) => 
-  item.id !== id)
+const setAndSave = (listItems) => {
   setItems(listItems)
-}
-const handleSubmit = (e) => {
-  e.preventDefault()
-  console.log(newItem)
-  addItem(newItem)
+  localStorage.setItem('homerslist', JSON.stringify(listItems))  
 }
 
 
@@ -32,10 +23,27 @@ const addItem = (item) => {
   const id = items.length ? items[items.length - 1].id + 1 : 1
   const myNewItem = { id, checked: false, item }
   const listItems = [ ...items, myNewItem ]
-  setItems(listItems)
-  localStorage.setItem('homerslist', JSON.stringify(listItems))
+  setAndSave(listItems)
 }
 
+const handleSubmit = (e) => {
+  e.preventDefault()
+  addItem(newItem)
+  setNewItem('')
+}
+
+const handleCheck = (id) => {
+  const listItems = items.map((item) => (
+    item.id === id ? { ...item, checked:!item.checked } : item
+  ))
+  setAndSave(listItems)
+}
+
+const handleDelete = (id) => {
+  const listItems = items.filter((item) => 
+  item.id !== id)
+  setAndSave(listItems)
+}
 
   return ( 
     <div className="App">
