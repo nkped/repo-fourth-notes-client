@@ -4,18 +4,17 @@ import SearchItem from "./SearchItem"
 
 import { useState } from "react"
 
+
 function App() {
 
   //STATES
+const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
 
-  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
+const [ newItem, setNewItem] = useState('')
 
-  const [ newItem, setNewItem] = useState('')
-
-  const [ search, setSearch ] = useState('')
+const [ search, setSearch ] = useState('')
 
 //FUNCTIONS
-
 const setAndSave = (listItems) => {
   setItems(listItems)
   localStorage.setItem('homerslist', JSON.stringify(listItems))  
@@ -54,16 +53,16 @@ const handleDelete = (id) => {
         newItem={newItem} 
         setNewItem={setNewItem} 
         handleSubmit={handleSubmit}
-       />
+        />
       <SearchItem 
         search={search} 
-        setSearch={setSearch} />
+        setSearch={setSearch} 
+        />
       <Content 
         items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()) )}
         handleCheck={handleCheck} 
         handleDelete={handleDelete}
-        />
-      
+        />      
     </div>
   );
 }
