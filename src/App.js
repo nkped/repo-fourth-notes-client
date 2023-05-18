@@ -2,10 +2,11 @@ import Content from "./Content"
 import AddItem from "./AddItem"
 import SearchItem from "./SearchItem"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 function App() {
+const API_URL = 'http://localhost:3500/items'
 
   //STATES
 const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
@@ -13,6 +14,18 @@ const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist
 const [ newItem, setNewItem] = useState('')
 
 const [ search, setSearch ] = useState('')
+
+
+useEffect(() => {
+  const fetchUrl = async () => {
+  const response = await fetch(API_URL)
+  const result = await response.json()
+  console.log(result)
+  }
+  fetchUrl()
+  }, []) 
+
+
 
 //FUNCTIONS
 const setAndSave = (listItems) => {
