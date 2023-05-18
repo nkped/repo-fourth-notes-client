@@ -10,20 +10,29 @@ const API_URL = 'http://localhost:3500/items'
 
   //STATES
 const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
-
 const [ newItem, setNewItem] = useState('')
-
 const [ search, setSearch ] = useState('')
+const [ fetchError, setFetchError ] = useState(null)
+const [ isLoading, setIsloading ] = useState(true)
 
 
 useEffect(() => {
   const fetchUrl = async () => {
-  const response = await fetch(API_URL)
-  const result = await response.json()
-  console.log(result)
+    try { 
+      const response = await fetch(API_URL)
+      if (!response.ok) throw new Error('Doh! Please reload Homers app!') 
+      const listItems = await response.json()
+      setItems(listItems)
+      console.log(listItems)
+      setFetchError(null)
+    } catch(err) {
+      setFetchError(err.message)
+    } finally {
+      setIsloading(false)
+    }
   }
-  fetchUrl()
-  }, []) 
+  setTimeout(() => fetchUrl(), 2000)
+}, []) 
 
 
 
