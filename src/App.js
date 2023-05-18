@@ -1,6 +1,7 @@
 import Content from "./Content"
 import AddItem from "./AddItem"
 import SearchItem from "./SearchItem"
+import apiRequest from "./apiRequest"
 
 import { useState, useEffect } from "react"
 
@@ -35,19 +36,26 @@ useEffect(() => {
 }, []) 
 
 
-
 //FUNCTIONS
-const setAndSave = (listItems) => {
-  setItems(listItems)
-  localStorage.setItem('homerslist', JSON.stringify(listItems))  
-}
 
-
-const addItem = (item) => {
+const addItem = async (item) => {
   const id = items.length ? items[items.length - 1].id + 1 : 1
   const myNewItem = { id, checked: false, item }
   const listItems = [ ...items, myNewItem ]
-  setAndSave(listItems)
+  setItems(listItems)
+
+  const postOptions = {
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(myNewItem)
+  }
+  const result = await apiRequest(API_URL, postOptions)
+  if (result) setFetchError(result)
+
+
+
 }
 
 const handleSubmit = (e) => {
@@ -60,13 +68,13 @@ const handleCheck = (id) => {
   const listItems = items.map((item) => (
     item.id === id ? { ...item, checked:!item.checked } : item
   ))
-  setAndSave(listItems)
+  setItems(listItems)
 }
 
 const handleDelete = (id) => {
   const listItems = items.filter((item) => 
   item.id !== id)
-  setAndSave(listItems)
+  setItems(listItems)
 }
 
   return ( 
