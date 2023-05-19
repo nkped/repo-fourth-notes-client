@@ -72,6 +72,18 @@ const handleCheck = (id) => {
     item.id === id ? { ...item, checked:!item.checked } : item
   ))
   setItems(listItems)
+
+  const myItem = listItems.filter((item) => item.id === id)
+  const updateOptions = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ checked: myItem[0].checked})
+  }
+  const reqUrl = `${API_URL}/${id}`
+  const result = apiRequest(reqUrl, updateOptions)
+  if (result) setFetchError(result)
 }
 
 const handleDelete = async (id) => {
@@ -82,7 +94,6 @@ const handleDelete = async (id) => {
   const reqUrl = `${API_URL}/${id}`
   const result = apiRequest(reqUrl, deleteOptions)
   if (result) setFetchError(result)
-
 }
 
   return ( 
