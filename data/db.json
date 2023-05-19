@@ -1,7 +1,24 @@
 {
-    "items": [
-            { "id": 1, "checked": true, "item": "walk Santas Little Helper" },
-            { "id": 2, "checked": false, "item": "thrash Bart" },
-            { "id": 3, "checked": false, "item": "come home drunk" }
-    ]
+  "items": [
+    {
+      "id": 1,
+      "checked": true,
+      "item": "walk Santas Little Helper"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "thrash Bart"
+    },
+    {
+      "id": 3,
+      "checked": false,
+      "item": "come home drunk"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "not return Flanders lawnmover"
+    }
+  ]
 }

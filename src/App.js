@@ -10,7 +10,7 @@ function App() {
 const API_URL = 'http://localhost:3500/items'
 
   //STATES
-const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('homerslist')) || [])
+const [ items, setItems ] = useState([])
 const [ newItem, setNewItem] = useState('')
 const [ search, setSearch ] = useState('')
 const [ fetchError, setFetchError ] = useState(null)
@@ -39,24 +39,27 @@ useEffect(() => {
 //FUNCTIONS
 
 const addItem = async (item) => {
-  const id = items.length ? items[items.length - 1].id + 1 : 1
-  const myNewItem = { id, checked: false, item }
-  const listItems = [ ...items, myNewItem ]
-  setItems(listItems)
+  const id = items.length ? items[items.length - 1].id + 1 : 1;
+  const myNewItem = { id, checked: false, item };
+  const listItems = [...items, myNewItem];
+  setItems(listItems);
 
   const postOptions = {
-    method: 'Post',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(myNewItem)
   }
-  const result = await apiRequest(API_URL, postOptions)
-  if (result) setFetchError(result)
-
-
-
+  const result = await apiRequest(API_URL, postOptions);
+  if (result) setFetchError(result);
 }
+
+
+
+
+
+
 
 const handleSubmit = (e) => {
   e.preventDefault()
@@ -71,10 +74,15 @@ const handleCheck = (id) => {
   setItems(listItems)
 }
 
-const handleDelete = (id) => {
+const handleDelete = async (id) => {
   const listItems = items.filter((item) => 
   item.id !== id)
   setItems(listItems)
+  const deleteOptions = { method: 'DELETE'}
+  const reqUrl = `${API_URL}/${id}`
+  const result = apiRequest(reqUrl, deleteOptions)
+  if (result) setFetchError(result)
+
 }
 
   return ( 
