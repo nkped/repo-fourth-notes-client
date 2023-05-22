@@ -7,7 +7,7 @@ import { useState, useEffect } from "react"
 
 
 function App() {
-const API_URL = 'http://localhost:3500/items'
+const API_URL = 'http://localhost:3500/itemss'
 
   //STATES
 const [ items, setItems ] = useState([])
@@ -43,7 +43,7 @@ const addItem = async (item) => {
   const myNewItem = { id, checked: false, item };
   const listItems = [...items, myNewItem];
   setItems(listItems);
-
+  //state above, database below
   const postOptions = {
     method: 'POST',
     headers: {
@@ -66,7 +66,7 @@ const handleCheck = (id) => {
     item.id === id ? { ...item, checked:!item.checked } : item
   ))
   setItems(listItems)
-
+  //state above, database below
   const myItem = listItems.filter((item) => item.id === id)
   const updateOptions = {
     method: 'PATCH',
@@ -84,6 +84,7 @@ const handleDelete = async (id) => {
   const listItems = items.filter((item) => 
   item.id !== id)
   setItems(listItems)
+  //state above, database below
   const deleteOptions = { method: 'DELETE'}
   const reqUrl = `${API_URL}/${id}`
   const result = apiRequest(reqUrl, deleteOptions)
@@ -101,20 +102,18 @@ const handleDelete = async (id) => {
         search={search} 
         setSearch={setSearch} 
         />
-      <Content 
-        items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()) )}
-        handleCheck={handleCheck} 
-        handleDelete={handleDelete}
-        />      
+      <main>
+        { isLoading && <p>Loading Homers tasks...</p> }
+        { fetchError && <p style={{color:"red"}}>Error: {fetchError}</p> }
+        { !isLoading && !fetchError && 
+        <Content 
+          items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()) )}
+          handleCheck={handleCheck} 
+          handleDelete={handleDelete}
+          />}
+      </main> 
     </div>
   );
 }
 
 export default App;
-
-
-/* [
-  { id: 1, checked: true, item: 'walk Santas Little Helper' },
-  { id: 2, checked: false, item: 'thrash Bart' },
-  { id: 3, checked: false, item: 'come home drunk' }
-] */
