@@ -7,18 +7,28 @@
     },
     {
       "id": 2,
-      "checked": false,
+      "checked": true,
       "item": "thrash Bart"
     },
     {
       "id": 3,
-      "checked": false,
+      "checked": true,
       "item": "come home drunk"
     },
     {
       "id": 4,
-      "checked": true,
+      "checked": false,
       "item": "not return Flanders lawnmover"
+    },
+    {
+      "id": 5,
+      "checked": false,
+      "item": "gsfgsdfgs"
+    },
+    {
+      "id": 6,
+      "checked": false,
+      "item": "xvxcv"
     }
   ]
 }

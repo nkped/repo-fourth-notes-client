@@ -24,10 +24,10 @@ useEffect(() => {
       if (!response.ok) throw new Error('Doh! Please reload Homers app!') 
       const listItems = await response.json()
       setItems(listItems)
-      console.log(listItems)
       setFetchError(null)
     } catch(err) {
       setFetchError(err.message)
+      console.log(fetchError)
     } finally {
       setIsloading(false)
     }
@@ -54,12 +54,6 @@ const addItem = async (item) => {
   const result = await apiRequest(API_URL, postOptions);
   if (result) setFetchError(result);
 }
-
-
-
-
-
-
 
 const handleSubmit = (e) => {
   e.preventDefault()
